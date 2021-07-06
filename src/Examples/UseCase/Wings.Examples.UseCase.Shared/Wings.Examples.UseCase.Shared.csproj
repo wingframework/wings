@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Frameworks\Wings.Framework.Shared\Wings.Framework.Shared.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\Users\moon\Documents\code\WingsQuick\src\Examples\UseCase\Wings.Examples.UseCase.Shared\Wings.Examples.UseCase.Shared.xml</DocumentationFile>
+  </PropertyGroup>
+
+</Project>

@@ -1,0 +1,88 @@
+﻿
+@page "/rbac/menu2"
+@namespace Wings.Examples.UseCase.Client.Pages
+@inject HttpClient HttpClient
+@inject ModalService _modalService
+@inject IMapper mapper
+
+<DataSourceManager TModel="MenuListDvo" @ref="DataSource"> </DataSourceManager>
+<AntTreeView TModel="MenuListDvo" @bind-SelectedData="SelectedData" @ref="table"></AntTreeView>
+@if (SelectedData != null)
+{
+    <div>
+        <Button Type="primary" Size="small" OnClick="() => createForm.ShowModal(new MenuCreateDvo { ParentId = SelectedData.ParentId })">添加同级</Button>
+        <Button Type="primary" Size="small" OnClick="() => createForm.ShowModal(new MenuCreateDvo { ParentId = SelectedData.Id })">添加下级</Button>
+        <Button Type="primary" Size="small" OnClick="() => updateForm.ShowModal(mapper.Map<MenuListDvo,MenuCreateDvo>(SelectedData))">编辑</Button>
+        <Button Type="danger" Size="small" OnClick="OpenDeleteConfirmModal" Disabled="SelectedData == null">删除</Button>
+    </div>
+
+
+    <AntDynamicForm TModel="MenuCreateDvo" mode="modal" @ref="createForm" OnSubmit="async () => {await createForm.InsertAsync();await table.Refresh(); }"></AntDynamicForm>
+    <AntDynamicForm TModel="MenuCreateDvo" mode="modal" @ref="updateForm" OnSubmit="async () =>{await updateForm.UpdateAsync();await table.Refresh(); }"></AntDynamicForm>
+}
+
+<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="createForm" OnSubmit="async () =>{await createForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="updateForm" OnSubmit="async () =>{await updateForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+
+
+@if (SelectedData != null)
+{
+    <Tabs>
+        <TabPane Key="1">
+            <Tab>基本信息</Tab>
+            <ChildContent>
+                <AntDetailView TModel="MenuListDvo" Value="SelectedData"></AntDetailView>
+            </ChildContent>
+        </TabPane>
+
+
+
+    </Tabs>
+
+}
+
+
+@code {
+    public AntTreeView<MenuListDvo> table { get; set; }
+    public MenuListDvo SelectedData { get; set; }
+    public MenuCreateDvo CreateData { get; set; }
+    public MenuCreateDvo EditData { get; set; }
+    AntDynamicForm<MenuCreateDvo> createForm;
+    AntDynamicForm<MenuCreateDvo> updateForm;
+    public DataSourceManager<MenuListDvo> DataSource { get; set; }
+    public void OpenDeleteConfirmModal()
+    {
+        _modalService.Confirm(new ConfirmOptions()
+        {
+            Title = "确定删除该条记录 ? ",
+            OnOk = async (e) =>
+            {
+                await DataSource.Delete(SelectedData);
+                await table.Load();
+            },
+            OnCancel = (e) => null
+        });
+    }
+
+
+
+    public async Task SelectData(MenuListDvo data)
+    {
+
+
+        SelectedData = null;
+        await Task.Run(async () =>
+         {
+             await Task.Delay(20);
+             SelectedData = data;
+             StateHasChanged();
+         });
+
+
+
+    }
+
+
+
+}
+

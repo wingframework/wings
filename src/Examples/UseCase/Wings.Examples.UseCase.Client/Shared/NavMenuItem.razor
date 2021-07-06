@@ -1,0 +1,31 @@
+@inherits NavMenuItemBase
+
+@if (GetMenuChildren().Count > 0)
+{
+    <SubMenu >
+        <TitleTemplate>
+            <div style="display:flex;align-items:center;">
+                <Icon Type="@(menuData.Icon)" Theme="outline" />
+                <span> @menuData.Label</span>
+            </div>
+        </TitleTemplate>
+        <ChildContent>
+            
+                @foreach (var child in GetMenuChildren())
+                {
+                    <NavMenuItem menuData="child" MenuDataList="MenuDataList"></NavMenuItem>
+
+                }
+        </ChildContent>
+    </SubMenu>
+}
+else
+{
+<MenuItem Key="@menuData.Link" RouterLink="@menuData.Link">
+    <div style="display:flex;align-items:center;">
+        <Icon Type="@menuData.Icon" Theme="outline" />
+        <span> @menuData.Label</span>
+    </div>
+
+</MenuItem>
+}

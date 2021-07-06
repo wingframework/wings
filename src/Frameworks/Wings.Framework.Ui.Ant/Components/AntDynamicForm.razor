@@ -1,0 +1,67 @@
+@namespace Wings.Framework.Ui.Ant.Components
+@using System.Reflection;
+@typeparam TModel
+@inherits AntDynamicFormBase<TModel>;
+
+
+
+
+<DataSourceManager TModel="TModel" @ref="DataSource"></DataSourceManager>
+@if(render)
+{
+    if (mode == "modal"  && Visible)
+    {
+
+        <Modal Visible="@_visible" Width="900" Title="@GetTitle()" OnOk="@HandleOk" OnCancel="@HandleCancel">
+            @if (Value != null)
+            {
+                @JsonSerializer.Serialize(Value)
+            }
+
+            <EditForm EditContext="editContext">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <Row Gutter="1">
+                    @if (render) { 
+                    @foreach (var item in props)
+                    {
+
+                        <AntDesign.Col Class="gutter-row" Span="@(item.GetCustomAttribute<FormFieldAttribute>()==null?DefaultFieldSpan:item.GetCustomAttribute<FormFieldAttribute>().Span )">
+                            <AntDynamicField Property="item" Value="Value" TModel="TModel" @ref="childFieldComponent"
+                                             OnValueChange="(value=>changeValue(item,value))" FieldValue="GetFieldValue(item)">
+                            </AntDynamicField>
+                        </AntDesign.Col>
+
+                    }
+                    }
+                </Row>
+
+
+
+
+            </EditForm>
+        </Modal>
+    }
+    if(mode=="inline")
+    {
+        <EditForm EditContext="editContext">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+            <Row Gutter="16">
+                @foreach (var item in props)
+                {
+
+                    <AntDesign.Col Class="gutter-row" Span="@(item.GetCustomAttribute<FormFieldAttribute>()==null?DefaultFieldSpan:item.GetCustomAttribute<FormFieldAttribute>().Span )">
+                        <AntDynamicField Property="item" Value="Value" TModel="TModel" @ref="childFieldComponent"
+                                         OnValueChange="(value=>changeValue(item,value))" FieldValue="GetFieldValue(item)">
+                        </AntDynamicField>
+                    </AntDesign.Col>
+
+                }
+            </Row>
+            
+
+        </EditForm>
+
+    }
+}

@@ -1,0 +1,18 @@
+@namespace Wings.Framework.Ui.Ant.Components
+@inherits  TreeView<TModel>
+@typeparam TModel 
+ 
+<DataSourceManager TModel="TModel" @ref="DataSource"></DataSourceManager>
+
+    <Tree @ref="tree" BlockNode Checkable="Checkable"  ShowLine ShowExpand TItem="TModel" 
+         DataSource="TopTItems"
+        TitleExpression="@(x => x.DataItem.GetType().GetProperty("Title").GetValue(x.DataItem)?.ToString())"
+        ChildrenExpression="@(x => x.DataItem.Children)" 
+          IsLeafExpression="@(x => x.DataItem.Children?.Count==0)"
+                KeyExpression="@(x => x.DataItem.Id.ToString())"
+       
+           
+          SelectedData="@SelectedData"  SelectedDataChanged="(value)=>ChangeSelectedData(value)" OnCheckBoxChanged="OnCheckBoxChange">
+    </Tree>
+
+

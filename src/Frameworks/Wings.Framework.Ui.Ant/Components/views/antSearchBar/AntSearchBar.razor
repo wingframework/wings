@@ -1,0 +1,13 @@
+﻿@namespace Wings.Framework.Ui.Ant.Components
+@inherits AntSearchBarBase<TModel>
+@typeparam TModel
+
+
+<DataSourceManager TModel="TModel"></DataSourceManager>
+
+<AntDynamicForm TModel="TModel" OnSubmit="OnSearchButtonClick" @ref="dynamicForm">
+</AntDynamicForm>
+<div style="text-align: right;">
+    <Button Type="primary" OnClick="()=>OnSearchButtonClick(dynamicForm.Value)">查询</Button>
+    <Button Type="default" OnClick="OnResetButtonClick">重置</Button>
+</div>

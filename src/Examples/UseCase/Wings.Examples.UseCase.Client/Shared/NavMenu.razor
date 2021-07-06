@@ -1,0 +1,14 @@
+﻿@inherits NavMenuBase
+<div>
+
+    <Menu DefaultSelectedKeys=@(new[] { "1" }) DefaultOpenKeys=@(new[] { "sub1" }) Mode=MenuMode.Inline
+        Theme=MenuTheme.Dark InlineCollapsed=collapsed>
+        @foreach (var item in TopMenu)
+        {
+            <NavMenuItem menuData="item" MenuDataList="MenuDataList">
+            </NavMenuItem>
+        }
+
+    </Menu>
+</div>
+

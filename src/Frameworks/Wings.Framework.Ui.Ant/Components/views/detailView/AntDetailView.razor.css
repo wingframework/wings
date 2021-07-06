@@ -1,0 +1,39 @@
+::deep .column-label {
+    background: #e2e2e2;
+    padding: 5px 10px;
+    text-align: left;
+    border: 1px solid lightblue;
+    color: lightsteelblue;
+}
+
+::deep .column-value {
+    padding: 0 35px;
+    text-align: center;
+    border: 1px solid lightgray;
+}
+
+.pageheader-content {
+    flex: 1;
+}
+
+    .pageheader-content p {
+        margin-bottom: 1em;
+    }
+
+.pageheader-content-link a {
+    margin-right: 16px;
+}
+
+.content-link a img {
+    margin-right: 8px;
+}
+
+.pageheader-content-image {
+    margin: 0 0 0 60px;
+    display: flex;
+    align-items: center;
+}
+
+    .pageheader-content-image img {
+        width: 100%;
+    }

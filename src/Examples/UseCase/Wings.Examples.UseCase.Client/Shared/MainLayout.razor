@@ -1,0 +1,96 @@
+﻿@inherits LayoutComponentBase
+@inject IAuthService authService
+@inject NavigationManager NavigationManager
+<Layout Style="min-height: 100vh; ">
+    <Sider Collapsible Collapsed=@collapsed OnCollapse=@onCollapse>
+        @if (collapsed)
+        {
+
+
+            <div class="logo small" /> }
+        else
+        {
+            <div class="logo " />
+
+        }
+        @if(MenuDataList!=null){
+        <NavMenu MenuDataList="MenuDataList"></NavMenu>
+        }
+    </Sider>
+    <Layout Class="site-layout">
+        <Header Class="site-layout-background" Style=" padding: 0 15px; background-color: #fff; box-shadow: 0 0 5px 5px rgb(0 0 0 / 20%);">
+            <div style="display:flex">
+                <div style="display: inline-block;width:100%">
+
+                    @if (collapsed)
+                    {
+                        <Icon Type="menu-unfold" Theme="outline" Class="trigger" OnClick="()=>onCollapse(false)" />
+                    }
+                    else
+                    {
+                        <Icon Type="menu-fold" Theme="outline" Class="trigger" OnClick="()=>onCollapse(true)" />
+                    }
+
+                </div>
+                <div style="flex-shrink:0;display:inline-block">
+                    <LoginDisplay user="user"></LoginDisplay>
+                </div>
+            </div>
+        </Header>
+        <Content Style="margin:0 16px;">
+            @*<Breadcrumb Style="margin:16px 0;">
+                <BreadcrumbItem>角色权限</BreadcrumbItem>
+                <BreadcrumbItem>角色管理</BreadcrumbItem>
+            </Breadcrumb>*@
+            <div class="site-layout-background" style="padding:0 14px 20px 14px; min-height: 360px">
+                @Body
+            </div>
+        </Content>
+        <Footer Style="text-align:center ">Ant Design ©2018 Created by Ant UED</Footer>
+    </Layout>
+</Layout>
+
+
+@code {
+    bool collapsed;
+    public UserDto user { get; set; }
+    void onCollapse(bool collapsed)
+    {
+        Console.WriteLine(collapsed);
+        this.collapsed = collapsed;
+    }
+    public List<MenuData> MenuDataList { get; set; }
+    protected async override Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        try {
+            var userInfo = await authService.GetUserInfo();
+            if (userInfo != null)
+            {
+                MenuDataList = userInfo.MenuDataList;
+                user = userInfo.User;
+            }
+            else
+            {
+                NavigationManager.NavigateTo("/Login");
+            }
+        }catch(Exception e)
+        {
+                if (NavigationManager.Uri.EndsWith("/Login"))
+                {
+
+                }
+                else
+                {
+                    NavigationManager.NavigateTo("/Login");
+
+                }
+            
+
+        }
+
+    }
+}
+
+

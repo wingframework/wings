@@ -1,0 +1,12 @@
+@namespace Wings.Framework.Ui.Ant.Components
+@typeparam TModel
+@inherits AntDetailPropBase<TModel>
+
+@if (Show)
+{
+  
+        <td class="column-label">@FieldLabel</td>
+        <td class="column-value">
+            <AntDynamicProp TModel="TModel" Value="Value" Property="Property"></AntDynamicProp>
+        </td>
+}
