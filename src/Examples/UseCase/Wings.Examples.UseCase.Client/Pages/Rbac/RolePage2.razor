@@ -1,1 +1,197 @@
-﻿
+﻿@page "/rbac/role2"
+@namespace Wings.Examples.UseCase.Client.Pages
+@inject HttpClient HttpClient
+@inject ModalService _modalService
+@inject IMapper mapper
+
+<DataSourceManager TModel="RoleListView" @ref="DataSource"> </DataSourceManager>
+<AntTableView TModel="RoleListView" SelectedRowChanged="SelectData" @ref="table">
+    <ToolbarTemplate> <Button OnClick="()=>{CreateData= new RoleListView();}" Type="primary"> 新增</Button>
+    </ToolbarTemplate>
+    <ActionColumnTemplate>
+        <Space>
+            <SpaceItem>
+                <Space>
+
+                    <SpaceItem>
+
+                        <Button Size="small" OnClick="()=>EditData= mapper.Map<RoleListView,RoleListView>(context)"
+                            Type="primary"> 编辑</Button>
+                    </SpaceItem>
+                    <SpaceItem>
+                        <Button Size="small" Danger
+                            OnClick="async ()=> { SelectedData = context; OpenDeleteConfirmModal();}"> 删除 </Button>
+                    </SpaceItem>
+                </Space>
+            </SpaceItem>
+        </Space>
+    </ActionColumnTemplate>
+
+</AntTableView>
+
+@if (CreateData != null)
+{
+
+    <Modal Visible="CreateData!=null" Width="900" Title="添加角色" OnOk="HandleOk" OnCancel="()=>{CreateData = null;}">
+        <Tabs>
+            <TabPane Key="1">
+                <Tab>基本信息</Tab>
+                <ChildContent>
+                    <AntDynamicForm TModel="RoleListView" Value="CreateData"></AntDynamicForm>
+                </ChildContent>
+            </TabPane>
+
+            <TabPane Key="角色菜单">
+                <Tab>角色菜单</Tab>
+                <ChildContent>
+                    <AntTreeView Checkable="true" @bind-CheckedNodes="CreateData.Menus" TModel="MenuListDvo"></AntTreeView>
+
+                </ChildContent>
+            </TabPane>
+
+
+            <TabPane Key="角色权限">
+                <Tab>角色权限</Tab>
+                <ChildContent>
+                    <AntTreeView Checkable="true" @bind-CheckedNodes="CreateData.Permissions" TModel="PermissionListDvo">
+                    </AntTreeView>
+
+                </ChildContent>
+            </TabPane>
+
+
+        </Tabs>
+
+    </Modal>
+}
+
+@if (EditData != null)
+{
+
+    <Modal Visible="EditData!=null" Width="900" Title="编辑角色" OnOk="HandleOk" OnCancel="()=>{EditData = null;}">
+        <Tabs>
+            <TabPane Key="1">
+                <Tab>基本信息</Tab>
+                <ChildContent>
+                    <AntDynamicForm TModel="RoleListView" Value="EditData"></AntDynamicForm>
+                </ChildContent>
+            </TabPane>
+
+            <TabPane Key="角色菜单">
+                <Tab>角色菜单</Tab>
+                <ChildContent>
+                    <AntTreeView Checkable="true" @bind-CheckedNodes="EditData.Menus" TModel="MenuListDvo"></AntTreeView>
+
+                </ChildContent>
+            </TabPane>
+
+
+            <TabPane Key="角色权限">
+                <Tab>角色权限</Tab>
+                <ChildContent>
+                    <AntTreeView Checkable="true" @bind-CheckedNodes="EditData.Permissions" TModel="PermissionListDvo">
+                    </AntTreeView>
+
+                </ChildContent>
+            </TabPane>
+
+        </Tabs>
+
+    </Modal>
+}
+
+
+@if (SelectedData != null)
+{
+    <Tabs>
+        <TabPane Key="1">
+            <Tab>基本信息</Tab>
+            <ChildContent>
+                <AntDetailView TModel="RoleListView" Value="SelectedData"></AntDetailView>
+            </ChildContent>
+        </TabPane>
+
+
+        <TabPane Key="角色菜单">
+            <Tab>角色菜单</Tab>
+            <ChildContent>
+
+                <AntTreeView DataListTItem="SelectedData.Menus" TModel="MenuListDvo"></AntTreeView>
+
+            </ChildContent>
+        </TabPane>
+
+
+        <TabPane Key="角色权限">
+            <Tab>角色权限</Tab>
+            <ChildContent>
+
+                <AntTreeView DataListTItem="SelectedData.Permissions" TModel="PermissionListDvo"></AntTreeView>
+
+            </ChildContent>
+        </TabPane>
+
+
+    </Tabs>
+
+}
+
+
+@code {
+    public AntTableView<RoleListView> table { get; set; }
+    public RoleListView SelectedData { get; set; }
+    public RoleListView CreateData { get; set; }
+    public RoleListView EditData { get; set; }
+    AntDynamicForm<RoleListView> createForm;
+    AntDynamicForm<RoleListView> updateForm;
+    public DataSourceManager<RoleListView> DataSource { get; set; }
+    public void OpenDeleteConfirmModal()
+    {
+        _modalService.Confirm(new ConfirmOptions()
+        {
+            Title = "确定删除该条记录 ? ",
+            OnOk = async (e) =>
+            {
+                await DataSource.Delete(SelectedData);
+                await table.Load();
+            },
+            OnCancel = (e) => null
+        });
+    }
+
+    public async Task HandleOk()
+    {
+        if (CreateData.Id != 0)
+        {
+            await DataSource.Update(CreateData);
+        }
+        else
+        {
+            await DataSource.Insert(CreateData);
+        }
+
+        EditData = null;
+        CreateData = null;
+        await table.Load();
+    }
+
+
+    public async Task SelectData(RoleListView data)
+    {
+
+
+        SelectedData = null;
+        await Task.Run(async () =>
+        {
+            await Task.Delay(20);
+            SelectedData = data;
+            StateHasChanged();
+        });
+
+
+
+    }
+
+
+
+}

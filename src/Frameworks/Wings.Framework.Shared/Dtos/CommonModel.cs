@@ -8,12 +8,13 @@ namespace Wings.Framework.Shared.Dtos
         public int Id { get; set; }
         public string Label { get; set; }
     }
-    public interface BasicTree<T> 
+    public interface BasicTree<T>
     {
-         int Id { get; set; }
-         int? ParentId { get; set; }
+        int Id { get; set; }
+        int? ParentId { get; set; }
+        public string Title { get; set; }
 
-        List<T> Children { get; set; } 
+        List<T> Children { get; set; }
     }
     public interface IRange<T>
 

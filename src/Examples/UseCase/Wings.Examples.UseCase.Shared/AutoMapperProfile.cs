@@ -8,8 +8,8 @@ namespace Wings.Examples.UseCase.Shared
     {
         public SharedAutoMapperProfile()
         {
-            CreateMap<MenuListDvo, MenuCreateDvo>()
-            .ReverseMap();
+
+
         }
     }
 }

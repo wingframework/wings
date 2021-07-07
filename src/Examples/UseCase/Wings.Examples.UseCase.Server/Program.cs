@@ -17,14 +17,14 @@ namespace Wings.Examples.UseCase.Server
     {
         public static async Task Main(string[] args)
         {
-         
+
             var host = CreateHostBuilder(args).Build();
 
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-                //await InitSeedDb(services);
+                await InitSeedDb(services);
             }
             host.Run();
         }
@@ -41,16 +41,16 @@ namespace Wings.Examples.UseCase.Server
             //var config = services.GetRequiredService<IConfiguration>();
             //if (config.GetValue<bool>("initDb"))
             //{
-                try
-                {
-                    // ³õÊ¼»¯Ä¬ÈÏµÄ¿ª·¢Õß×ÊÔ´
-                    await SeedData.InitializeDefaultDeveloperResource(services);
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred seeding the DB.");
-                }
+            try
+            {
+                // ï¿½ï¿½Ê¼ï¿½ï¿½Ä¬ï¿½ÏµÄ¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´
+                await SeedData.InitializeDefaultDeveloperResource(services);
+            }
+            catch (Exception ex)
+            {
+                var logger = services.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred seeding the DB.");
+            }
             //}
         }
     }

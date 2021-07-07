@@ -19,26 +19,16 @@ namespace Wings.Examples.UseCase.Shared.Dvo
                     .SetPageLink("/rbac/role2")
                   .SetMainView<RoleListView>()
                   .SetCreateViewType<RoleListView>()
-                  .SetCreateViewTabs( JoinMany<MenuListDvo>(nameof(RoleListView.Menus),"角色菜单"), JoinMany<PermissionListDvo>(nameof(RoleListView.Permissions),"角色权限"))
-                  .SetUpdateViewTabs( JoinMany<MenuListDvo>(nameof(RoleListView.Menus),"角色菜单"), JoinMany<PermissionListDvo>(nameof(RoleListView.Permissions), "角色权限") )
+                  .SetCreateViewTabs(ManyToMany<MenuListDvo>(nameof(RoleListView.Menus), "角色菜单"), ManyToMany<PermissionListDvo>(nameof(RoleListView.Permissions), "角色权限"))
+                  .SetUpdateViewTabs(ManyToMany<MenuListDvo>(nameof(RoleListView.Menus), "角色菜单"), ManyToMany<PermissionListDvo>(nameof(RoleListView.Permissions), "角色权限"))
                   .SetUpdateViewType<RoleListView>()
                   .SetDetailViewType<RoleListView>()
-                  .SetDetailViewTabs( JoinMany<MenuListDvo>(nameof(RoleListView.Menus),"角色菜单"), JoinMany<PermissionListDvo>(nameof(RoleListView.Permissions), "角色权限"))
+                  .SetDetailViewTabs(ManyToMany<MenuListDvo>(nameof(RoleListView.Menus), "角色菜单"), ManyToMany<PermissionListDvo>(nameof(RoleListView.Permissions), "角色权限"))
                   .Commit();
         }
     }
 
-    [DataSource("/api/RoleView")]
-    public class RoleDetailView
-    {
-        [Tab(Title = "角色菜单")]
 
-        public List<MenuListDvo> Menus { get; set; }
-        [Tab(Title = "角色权限")]
-
-        public List<PermissionListDvo> Permissions { get; set; }
-
-    }
 
     [SearchBar(typeof(RoleListSearchBar))]
     [DataSource("/api/RoleView")]
@@ -93,6 +83,10 @@ namespace Wings.Examples.UseCase.Shared.Dvo
         [Where(WhereCondition.LessThen, nameof(RoleListDvo.CreateAt))]
         public DateTime? CreateAtEnd { get; set; }
     }
+
+
+
+
     [SearchBar(typeof(RoleListSearchBar))]
     [DataSource("/api/Role")]
     [TablePage("角色管理")]
@@ -123,5 +117,5 @@ namespace Wings.Examples.UseCase.Shared.Dvo
         public List<PermissionListDvo> Permissions { get; set; }
     }
 
-   
+
 }

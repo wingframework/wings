@@ -13,13 +13,18 @@ namespace Wings.Examples.UseCase.Server
     {
         public AutoMapperProfile()
         {
+            CreateMap<Menu, MenuListDvo>()
+            .ForMember((dvo) => dvo.Title, (opt) => opt.MapFrom(menu => menu.Name))
+            .ReverseMap();
 
             CreateMap<Menu, MenuListDvo>()
+            .ForMember((dvo) => dvo.Title, (opt) => opt.MapFrom(menu => menu.Name))
+            .ReverseMap();
 
-            .ForMember((dvo) => dvo.Title, opt => opt.MapFrom(menu => menu.Name))
-              .ForMember((dvo) => dvo.Path, opt => opt.MapFrom(m => m.Url))
-            .ReverseMap()
-            ;
+
+
+
+
             CreateMap<RbacRole, RoleListDvo>()
             //.ForMember((roleListDvo) => roleListDvo.MenuList, opt => opt.MapFrom(role => role.Menus))
             .ReverseMap()
@@ -29,23 +34,22 @@ namespace Wings.Examples.UseCase.Server
             .ForMember((dvo) => dvo.Link, opt => opt.MapFrom(m => m.Url))
             .ReverseMap()
             ;
-            CreateMap<Menu, MenuCreateDvo>()
-           .ForMember((dvo) => dvo.Path, opt => opt.MapFrom(m => m.Url))
-           .ForMember((dvo) => dvo.Title, opt => opt.MapFrom(m => m.Name))
-           .ReverseMap()
-           ;
+            //CreateMap<Menu, MenuCreateDvo>()
+            //.ForMember((dvo) => dvo.Title, opt => opt.MapFrom(m => m.Name))
+            //.ReverseMap()
+            ;
             CreateMap<Permission, PermissionListDvo>()
-                .ForMember(dvo=>dvo.Title,opt=>opt.MapFrom(m=>m.Label))
+                .ForMember(dvo => dvo.Title, opt => opt.MapFrom(m => m.Label))
                 .ReverseMap();
 
             CreateMap<Category, CategoryListDvo>()
                 .ForMember(dvo => dvo.Title, entity => entity.MapFrom(m => m.Name))
-                     
+
                 .ReverseMap();
 
             CreateMap<Attr, AttrListDvo>()
-               .ForMember(dvo=>dvo.AttrCategoryId,opt=>opt.MapFrom(entity=>entity.AttrCategory.Id))
-               .ForMember(dvo=>dvo.AttrCategoryOption,opt=>opt.MapFrom(entity=>entity.AttrCategory))
+               .ForMember(dvo => dvo.AttrCategoryId, opt => opt.MapFrom(entity => entity.AttrCategory.Id))
+               .ForMember(dvo => dvo.AttrCategoryOption, opt => opt.MapFrom(entity => entity.AttrCategory))
                .ReverseMap();
             CreateMap<AttrCategory, AttrCategoryOption>()
            .ForMember(dvo => dvo.Label, entity => entity.MapFrom(m => m.Name))
@@ -61,7 +65,7 @@ namespace Wings.Examples.UseCase.Server
             CreateMap<Good, GoodDto>();
             CreateMap<Good, GoodInfoDto>();
             CreateMap<GoodAttr, GoodAttrDto>()
-                .ForMember(dto=>dto.Name,opt=>opt.MapFrom(good=>good.Attr.Name))
+                .ForMember(dto => dto.Name, opt => opt.MapFrom(good => good.Attr.Name))
                 .ForMember(dto => dto.Value, opt => opt.MapFrom(good => good.Value))
                 ;
             CreateMap<RoleListView, RbacRole>().ReverseMap();

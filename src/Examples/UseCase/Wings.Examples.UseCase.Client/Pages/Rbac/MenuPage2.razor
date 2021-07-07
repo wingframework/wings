@@ -1,5 +1,4 @@
-﻿
-@page "/rbac/menu2"
+﻿@page "/rbac/menu2"
 @namespace Wings.Examples.UseCase.Client.Pages
 @inject HttpClient HttpClient
 @inject ModalService _modalService
@@ -10,19 +9,26 @@
 @if (SelectedData != null)
 {
     <div>
-        <Button Type="primary" Size="small" OnClick="() => createForm.ShowModal(new MenuCreateDvo { ParentId = SelectedData.ParentId })">添加同级</Button>
-        <Button Type="primary" Size="small" OnClick="() => createForm.ShowModal(new MenuCreateDvo { ParentId = SelectedData.Id })">添加下级</Button>
-        <Button Type="primary" Size="small" OnClick="() => updateForm.ShowModal(mapper.Map<MenuListDvo,MenuCreateDvo>(SelectedData))">编辑</Button>
+        <Button Type="primary" Size="small"
+        OnClick="() => createForm.ShowModal(new MenuCreateDvo { ParentId = SelectedData.ParentId })">添加同级</Button>
+        <Button Type="primary" Size="small"
+        OnClick="() => createForm.ShowModal(new MenuCreateDvo { ParentId = SelectedData.Id })">添加下级</Button>
+        <Button Type="primary" Size="small"
+        OnClick="() => updateForm.ShowModal(mapper.Map<MenuListDvo,MenuCreateDvo>(SelectedData))">编辑</Button>
         <Button Type="danger" Size="small" OnClick="OpenDeleteConfirmModal" Disabled="SelectedData == null">删除</Button>
     </div>
 
 
-    <AntDynamicForm TModel="MenuCreateDvo" mode="modal" @ref="createForm" OnSubmit="async () => {await createForm.InsertAsync();await table.Refresh(); }"></AntDynamicForm>
-    <AntDynamicForm TModel="MenuCreateDvo" mode="modal" @ref="updateForm" OnSubmit="async () =>{await updateForm.UpdateAsync();await table.Refresh(); }"></AntDynamicForm>
+    <AntDynamicForm TModel="MenuCreateDvo" mode="modal" @ref="createForm"
+    OnSubmit="async () => {await createForm.InsertAsync();await table.Refresh(); }"></AntDynamicForm>
+    <AntDynamicForm TModel="MenuCreateDvo" mode="modal" @ref="updateForm"
+    OnSubmit="async () =>{await updateForm.UpdateAsync();await table.Refresh(); }"></AntDynamicForm>
 }
 
-<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="createForm" OnSubmit="async () =>{await createForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
-<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="updateForm" OnSubmit="async () =>{await updateForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="createForm"
+    OnSubmit="async () =>{await createForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="updateForm"
+    OnSubmit="async () =>{await updateForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
 
 
 @if (SelectedData != null)
@@ -72,11 +78,11 @@
 
         SelectedData = null;
         await Task.Run(async () =>
-         {
-             await Task.Delay(20);
-             SelectedData = data;
-             StateHasChanged();
-         });
+        {
+            await Task.Delay(20);
+            SelectedData = data;
+            StateHasChanged();
+        });
 
 
 
@@ -85,4 +91,3 @@
 
 
 }
-
