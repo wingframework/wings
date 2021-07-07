@@ -30,22 +30,7 @@ namespace Wings.Examples.UseCase.Client.Pages
 {GetCreateView()}
 {GetUpdateView()}
 
-
-@if (SelectedData != null)
-{{
-    <Tabs>
-        <TabPane Key=""1"">
-            <Tab>基本信息</Tab>
-            <ChildContent>
-                <AntDetailView TModel=""{PageData.DetailViewType.Name}"" Value=""mapper.Map<{PageData.MainViewType.Name},{PageData.DetailViewType.Name}>(SelectedData)""></AntDetailView>
-            </ChildContent>
-        </TabPane>
-    
-      {GetAllDetailTabCodes()}
-
-    </Tabs>
-
-}}
+{GetDetailCode()}
 
 
 @code {{
@@ -93,6 +78,32 @@ namespace Wings.Examples.UseCase.Client.Pages
 }}
 
 ";
+        }
+
+        public string GetDetailCode()
+        {
+            if (IsTableType(PageData.DetailViewType))
+            {
+                return @$"
+
+@if (SelectedData != null)
+{{
+    <Tabs>
+        <TabPane Key=""1"">
+            <Tab>基本信息</Tab>
+            <ChildContent>
+                <AntDetailView TModel=""{PageData.DetailViewType.Name}"" Value=""mapper.Map<{PageData.MainViewType.Name},{PageData.DetailViewType.Name}>(SelectedData)""></AntDetailView>
+            </ChildContent>
+        </TabPane>
+    
+      {GetAllDetailTabCodes()}
+
+    </Tabs>
+
+}}";
+            }
+            return "";
+
         }
     
 
@@ -179,7 +190,14 @@ namespace Wings.Examples.UseCase.Client.Pages
             }
             else
             {
-                return @$"<AntTreeView TModel=""{PageData.MainViewType.Name}"" @bind-SelectedData=""SelectedData"" @ref=""table""></AntTreeView>
+                return @$"
+<Row Gutter=""16"">
+    <Col Span=""8"">
+<AntTreeView TModel=""{PageData.MainViewType.Name}"" @bind-SelectedData=""SelectedData"" @ref=""table""></AntTreeView>
+
+</Col>
+    <Col Span=""12"" Push=""2"">
+   
   @if(SelectedData != null)
     {{
         <div>
@@ -188,11 +206,24 @@ namespace Wings.Examples.UseCase.Client.Pages
             <Button Type=""primary"" Size=""small"" OnClick=""() => updateForm.ShowModal(mapper.Map<{PageData.MainViewType.Name},{PageData.UpdateViewType.Name}>(SelectedData))"">编辑</Button>
             <Button Type=""danger"" Size=""small"" OnClick=""OpenDeleteConfirmModal"" Disabled=""SelectedData == null"">删除</Button>
         </div>
-        
 
-        <AntDynamicForm TModel=""{PageData.CreateViewType.Name}"" mode=""modal"" @ref=""createForm"" OnSubmit=""async () => {{await createForm.InsertAsync();await table.Refresh(); }}""></AntDynamicForm>
-        <AntDynamicForm TModel=""{PageData.UpdateViewType.Name}"" mode=""modal"" @ref=""updateForm"" OnSubmit=""async () =>{{await updateForm.UpdateAsync();await table.Refresh(); }}""></AntDynamicForm>
-    }}
+    <Tabs>
+        <TabPane Key=""1"">
+            <Tab>基本信息</Tab>
+            <ChildContent>
+                <AntDetailView TModel=""{PageData.DetailViewType.Name}"" Value=""mapper.Map<{PageData.MainViewType.Name},{PageData.DetailViewType.Name}>(SelectedData)""></AntDetailView>
+            </ChildContent>
+        </TabPane>
+    
+      {GetAllDetailTabCodes()}
+
+    </Tabs>
+
+
+   
+        }}
+   </Col>
+</Row>
 ";
             }
         }
