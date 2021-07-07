@@ -51,6 +51,7 @@ namespace Wings.Examples.UseCase.Shared.Dvo
     {
         public int Id { get; set; }
         [Display(Name = "排序")]
+       
         public int Order { get; set; }
         [Display(Name = "菜单编码")]
 
@@ -92,7 +93,10 @@ namespace Wings.Examples.UseCase.Shared.Dvo
         public int Id { get; set; }
         [Display(Name = "排序")]
         public int Order { get; set; }
-
+        [Display(Name = "菜单编码")]
+        [Required]
+        [StringLength(10,MinimumLength =1)]
+        public string Code { get; set; }
         [Display(Name = "地址")]
 
         public string Url { get; set; }

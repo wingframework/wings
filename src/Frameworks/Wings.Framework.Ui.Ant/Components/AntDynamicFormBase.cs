@@ -59,19 +59,27 @@ namespace Wings.Framework.Ui.Ant.Components
         public EventCallback<TModel> OnSubmit { get; set; }
         public void ShowModal(TModel item)
         {
-
             Value = item;
+            editContext = new EditContext(Value);
             mode = "modal";
             Visible = true;
 
         }
         public async Task InsertAsync()
         {
-            await DataSource.Insert(Value);
+            if (editContext.Validate())
+            {
+                Console.WriteLine("可以插入数据");
+                await DataSource.Insert(Value);
+            }
         }
         public async Task UpdateAsync()
         {
-            await DataSource.Update(Value);
+            if (editContext.Validate())
+            {
+                await DataSource.Update(Value);
+            }
+            
         }
 
         protected override void OnInitialized()
@@ -88,7 +96,8 @@ namespace Wings.Framework.Ui.Ant.Components
 
                 editContext = new EditContext(Value);
                 LoadPropertitys();
-                render = true;
+            render = true;
+
             }
         }
         protected void LoadPropertitys()
@@ -130,7 +139,7 @@ namespace Wings.Framework.Ui.Ant.Components
         {
             if (editContext.Validate())
             {
-
+                Console.WriteLine("表单校验通过");
 
                 await OnSubmit.InvokeAsync(Value);
                 Visible = false;
@@ -155,18 +164,6 @@ namespace Wings.Framework.Ui.Ant.Components
             var value = typeof(TModel).GetProperty(item.Name).GetValue(Value);
             return typeof(TModel).GetProperty(item.Name).GetValue(Value);
         }
-        public string GetTitle()
-        {
-            switch (editType)
-            {
-                case EditType.Detail:
-                    return "详情";
-                case EditType.Insert:
-                    return "新增";
-                default:
-                    return "更新";
-
-            }
-        }
+       
     }
 }

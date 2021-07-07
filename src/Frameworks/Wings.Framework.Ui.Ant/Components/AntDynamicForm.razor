@@ -9,26 +9,28 @@
 <DataSourceManager TModel="TModel" @ref="DataSource"></DataSourceManager>
 @if(render)
 {
-    if (mode == "modal"  && Visible)
+    if (mode == "modal" && Visible)
     {
 
-        <Modal Visible="@_visible" Width="900" Title="@GetTitle()" OnOk="@HandleOk" OnCancel="@HandleCancel">
+
+@if(_visible) {
+        <Modal Visible="@_visible" Width="900" Title="Ò³Ãæ" OnOk="@HandleOk" OnCancel="@HandleCancel">
             @if (Value != null)
             {
                 @JsonSerializer.Serialize(Value)
             }
 
-            <EditForm EditContext="editContext">
+            <EditForm  EditContext="editContext">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
                 <Row Gutter="1">
-                    @if (render) { 
+                    @if (render) {
                     @foreach (var item in props)
                     {
 
-                        <AntDesign.Col Class="gutter-row" Span="@(item.GetCustomAttribute<FormFieldAttribute>()==null?DefaultFieldSpan:item.GetCustomAttribute<FormFieldAttribute>().Span )">
+                        <AntDesign.Col Class="gutter-row" Span="@(item.GetCustomAttribute<FormFieldAttribute>() == null ? DefaultFieldSpan : item.GetCustomAttribute<FormFieldAttribute>().Span )">
                             <AntDynamicField Property="item" Value="Value" TModel="TModel" @ref="childFieldComponent"
-                                             OnValueChange="(value=>changeValue(item,value))" FieldValue="GetFieldValue(item)">
+                                             OnValueChange="(value => changeValue(item, value))" FieldValue="GetFieldValue(item)">
                             </AntDynamicField>
                         </AntDesign.Col>
 
@@ -42,8 +44,9 @@
             </EditForm>
         </Modal>
     }
-    if(mode=="inline")
-    {
+}
+if(mode=="inline")
+{
         <EditForm EditContext="editContext">
             <DataAnnotationsValidator />
             <ValidationSummary />

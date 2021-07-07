@@ -62,9 +62,9 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin.Rbac
         }
 
         [HttpGet]
-        public   RoleDetailView Detail(int id)
+        public RoleListView Detail(int id)
         {
-           return appDbContext.Roles.Where(role => role.Id == id).ProjectTo<RoleDetailView>(mapper.ConfigurationProvider).FirstOrDefault();
+           return appDbContext.Roles.Where(role => role.Id == id).ProjectTo<RoleListView>(mapper.ConfigurationProvider).FirstOrDefault();
         }
 
 

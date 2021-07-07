@@ -37,7 +37,7 @@ namespace Wings.Examples.UseCase.Client.Pages
         <TabPane Key=""1"">
             <Tab>基本信息</Tab>
             <ChildContent>
-                <AntDetailView TModel=""{PageData.DetailViewType.Name}"" Value=""SelectedData""></AntDetailView>
+                <AntDetailView TModel=""{PageData.DetailViewType.Name}"" Value=""mapper.Map<{PageData.MainViewType.Name},{PageData.DetailViewType.Name}>(SelectedData)""></AntDetailView>
             </ChildContent>
         </TabPane>
     
