@@ -7,14 +7,13 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Shared.Dto;
-using Wings.Examples.UseCase.Shared.Dvo;
 using Wings.Framework.Ui.Core.Components;
 
 namespace Wings.Examples.UseCase.Client.Pages
 {
-  
 
-   
 
-    
+
+
+
 }

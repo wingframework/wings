@@ -7,7 +7,7 @@ using Wings.Framework.Shared.Attributes.ViewAttributes;
 using Wings.Framework.Shared.Dtos;
 using Wings.Framework.Shared.Dtos.Admin;
 
-namespace Wings.Examples.UseCase.Shared.Dvo
+namespace Wings.Examples.UseCase.Shared.Dto.Admin
 {
     /// <summary>
     /// 声明一个类 角色页面 继承 页面设计

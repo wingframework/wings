@@ -12,7 +12,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Server.Models;
-using Wings.Examples.UseCase.Shared.Dto;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Server.Controllers.Admin
 {
@@ -41,7 +41,7 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
         public async Task<IActionResult> Login([FromBody] LoginModel login)
         {
             var result = await _signInManager.PasswordSignInAsync(login.Email, login.Password, false, false);
-            
+
 
             if (!result.Succeeded) return BadRequest(new LoginResult { Successful = false, Error = "用户名或密码错误" });
 
@@ -50,8 +50,8 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expiry = DateTime.Now.AddDays(Convert.ToInt32(_configuration["JwtExpiryInDays"]));
             var user = await _userManager.FindByNameAsync(login.Email);
-           var claims = await _userManager.GetClaimsAsync(user);
-            
+            var claims = await _userManager.GetClaimsAsync(user);
+
             var token = new JwtSecurityToken(
                 _configuration["JwtIssuer"],
                 _configuration["JwtAudience"],
@@ -59,13 +59,13 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
                 expires: expiry,
                 signingCredentials: creds
             );
-            
 
-            return Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) } );
+
+            return Ok(new LoginResult { Successful = true, Token = new JwtSecurityTokenHandler().WriteToken(token) });
         }
         [Authorize]
         [HttpGet("[action]")]
-        public async  Task<bool> Logout()
+        public async Task<bool> Logout()
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -73,7 +73,7 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
                 return true;
             }
             return false;
-            
+
         }
     }
 }

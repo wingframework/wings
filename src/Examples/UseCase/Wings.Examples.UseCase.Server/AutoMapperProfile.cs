@@ -2,10 +2,10 @@ using AutoMapper;
 using System.Linq;
 using Wings.Examples.UseCase.Shared.Dto;
 using Wings.Framework.Shared.Dtos;
-using Wings.Examples.UseCase.Shared.Dvo;
 using Wings.Examples.UseCase.Server.Models;
 using Wings.Examples.UseCase.Server.Controllers.Admin;
 using Wings.Examples.UseCase.Shared.Dto.MiniShop;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Server
 {
@@ -21,7 +21,9 @@ namespace Wings.Examples.UseCase.Server
             .ForMember((dvo) => dvo.Title, (opt) => opt.MapFrom(menu => menu.Name))
             .ReverseMap();
 
-
+            CreateMap<Category, CategoryListDvo>()
+           .ForMember((dvo) => dvo.Title, (opt) => opt.MapFrom(Category => Category.Name))
+           .ReverseMap();
 
 
 

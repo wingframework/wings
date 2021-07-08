@@ -2,20 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Wings.Examples.UseCase.Shared.Dto
+namespace Wings.Examples.UseCase.Shared.Dto.Admin
 {
     public class ProvinceJson
     {
         public string name { get; set; }
         public List<CityJson> city { get; set; }
-
-    }
-
-    public class CityJson
-    {
-        public string name { get; set; }
-
-        public List<string> area { get; set; }
 
     }
     public class RbacUserModel
@@ -41,6 +33,15 @@ namespace Wings.Examples.UseCase.Shared.Dto
         public string AvatarUrl { get; set; }
 
     }
+
+    public class CityJson
+    {
+        public string name { get; set; }
+
+        public List<string> area { get; set; }
+
+    }
+
     public class MyMenu
     {
         public long id { get; set; }
@@ -60,24 +61,24 @@ namespace Wings.Examples.UseCase.Shared.Dto
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "ÓÊÏä")]
+        [Display(Name = "ï¿½ï¿½ï¿½ï¿½")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = " {0} ±ØÐë×îÉÙ {2} ÇÒ ×î´ó {1} ×Ö·û³¤¶È.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = " {0} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ {2} ï¿½ï¿½ ï¿½ï¿½ï¿½ {1} ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "ÃÜÂë")]
+        [Display(Name = "ï¿½ï¿½ï¿½ï¿½")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "È·ÈÏÃÜÂë")]
-        [Compare("Password", ErrorMessage = "Á½´ÎÊäÈëµÄÃÜÂë²»Ò»ÖÂ")]
+        [Display(Name = "È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
+        [Compare("Password", ErrorMessage = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»Ò»ï¿½ï¿½")]
         public string ConfirmPassword { get; set; }
         /// <summary>
-        /// ÑéÖ¤Âë
+        /// ï¿½ï¿½Ö¤ï¿½ï¿½
         /// </summary>
         [Required]
-        [Display(Name = "ÑéÖ¤Âë")]
+        [Display(Name = "ï¿½ï¿½Ö¤ï¿½ï¿½")]
         public string Code { get; set; }
     }
     public class LoginResult
@@ -88,13 +89,13 @@ namespace Wings.Examples.UseCase.Shared.Dto
     }
     public class LoginModel
     {
-        [Display(Name = "ÓÃ»§Ãû")]
-        [Required(ErrorMessage = "ÓÃ»§Ãû±ØÌî")]
+        [Display(Name = "ï¿½Ã»ï¿½ï¿½ï¿½")]
+        [Required(ErrorMessage = "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
         public string Email { get; set; }
-        [Display(Name = "ÃÜÂë")]
-        [Required(ErrorMessage = "{0} ±ØÌî")]
+        [Display(Name = "ï¿½ï¿½ï¿½ï¿½")]
+        [Required(ErrorMessage = "{0} ï¿½ï¿½ï¿½ï¿½")]
         public string Password { get; set; }
-        [Display(Name = "¼Ç×¡ÎÒ")]
+        [Display(Name = "ï¿½ï¿½×¡ï¿½ï¿½")]
         public bool RememberMe { get; set; }
     }
 

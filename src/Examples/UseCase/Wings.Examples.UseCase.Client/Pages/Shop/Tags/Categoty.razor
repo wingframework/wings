@@ -1,0 +1,97 @@
+@page "/rbac/category2"
+@namespace Wings.Examples.UseCase.Client.Pages
+@inject HttpClient HttpClient
+@inject ModalService _modalService
+@inject IMapper mapper
+
+<DataSourceManager TModel="CategoryListDvo" @ref="DataSource"> </DataSourceManager>
+
+<Row Gutter="16">
+    <Col Span="8">
+    <AntTreeView TModel="CategoryListDvo" @bind-SelectedData="SelectedData" @ref="table"></AntTreeView>
+
+    </Col>
+    <Col Span="12" Push="2">
+
+    @if (SelectedData != null)
+        {
+        <div>
+            <Button Type="primary" Size="small"
+            OnClick="() => createForm.ShowModal(new CategoryListDvo { ParentId = SelectedData.ParentId })">添加同级</Button>
+            <Button Type="primary" Size="small"
+            OnClick="() => createForm.ShowModal(new CategoryListDvo { ParentId = SelectedData.Id })">添加下级</Button>
+            <Button Type="primary" Size="small"
+            OnClick="() => updateForm.ShowModal(mapper.Map<CategoryListDvo,CategoryListDvo>(SelectedData))">编辑</Button>
+            <Button Type="danger" Size="small" OnClick="OpenDeleteConfirmModal" Disabled="SelectedData == null">删除</Button>
+        </div>
+
+        <Tabs>
+            <TabPane Key="1">
+                <Tab>基本信息</Tab>
+                <ChildContent>
+                    <AntDetailView TModel="CategoryListDvo"
+                    Value="mapper.Map<CategoryListDvo,CategoryListDvo>(SelectedData)"></AntDetailView>
+                </ChildContent>
+            </TabPane>
+
+
+
+        </Tabs>
+
+
+
+        }
+    </Col>
+</Row>
+
+<AntDynamicForm mode="modal" TModel="CategoryListDvo" @ref="createForm"
+    OnSubmit="async () =>{await createForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+<AntDynamicForm mode="modal" TModel="CategoryListDvo" @ref="updateForm"
+    OnSubmit="async () =>{await updateForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+
+
+
+
+@code {
+    public AntTreeView<CategoryListDvo> table { get; set; }
+    public CategoryListDvo SelectedData { get; set; }
+    public CategoryListDvo CreateData { get; set; }
+    public CategoryListDvo EditData { get; set; }
+    AntDynamicForm<CategoryListDvo> createForm;
+    AntDynamicForm<CategoryListDvo> updateForm;
+    public DataSourceManager<CategoryListDvo> DataSource { get; set; }
+    public void OpenDeleteConfirmModal()
+    {
+        _modalService.Confirm(new ConfirmOptions()
+        {
+            Title = "确定删除该条记录 ? ",
+            OnOk = async (e) =>
+            {
+                await DataSource.Delete(SelectedData);
+                await table.Load();
+            },
+            OnCancel = (e) => null
+        });
+    }
+
+
+
+    public async Task SelectData(CategoryListDvo data)
+    {
+
+
+        SelectedData = null;
+        await Task.Run(async () =>
+        {
+            await Task.Delay(20);
+            SelectedData = data;
+            StateHasChanged();
+        });
+
+
+
+    }
+
+
+
+}

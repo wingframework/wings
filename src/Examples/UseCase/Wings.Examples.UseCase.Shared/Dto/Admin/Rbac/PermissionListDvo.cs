@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Wings.Framework.Shared.Attributes;
 using Wings.Framework.Shared.Dtos;
 
-namespace Wings.Examples.UseCase.Shared.Dvo
+namespace Wings.Examples.UseCase.Shared.Dto.Admin
 {
     [DataSource("/api/permission")]
-    public class PermissionListDvo:BasicTree<PermissionListDvo>
+    public class PermissionListDvo : BasicTree<PermissionListDvo>
     {
         public int Id { get; set; }
         public int? ParentId { get; set; }

@@ -8,7 +8,7 @@ using AntDesign;
 using Wings.Examples.UseCase.Client.Services;
 using Tewr.Blazor.FileReader;
 using System.IO;
-using Wings.Examples.UseCase.Shared.Dto;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Client.Pages
 {
@@ -50,8 +50,8 @@ namespace Wings.Examples.UseCase.Client.Pages
                 //}
             }
         }
-       protected  RbacUserModel userModel = new RbacUserModel();
-       protected  Form<RbacUserModel> editForm;
+        protected RbacUserModel userModel = new RbacUserModel();
+        protected Form<RbacUserModel> editForm;
         protected List<ProvinceJson> provinceJsons;
 
         protected override async Task OnParametersSetAsync()

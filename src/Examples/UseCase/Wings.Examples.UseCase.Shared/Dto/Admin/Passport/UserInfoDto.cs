@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Wings.Examples.UseCase.Shared.Dvo;
+
 using Wings.Framework.Shared.Dtos;
 
-namespace Wings.Examples.UseCase.Shared.Dto
+namespace Wings.Examples.UseCase.Shared.Dto.Admin
 {
     public class UserDto
     {

@@ -8,18 +8,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Server.Models;
 using Wings.Examples.UseCase.Server.Services.UnitOfWork;
-using Wings.Examples.UseCase.Shared.Dvo;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Server.Controllers.Rbac
 {
     [ApiController]
     [Route("/api/[controller]/[action]")]
-    public class PermissionController : TreeEntityControllerBase<Permission,PermissionListDvo,PermissionListDvo,PermissionListDvo>
+    public class PermissionController : TreeEntityControllerBase<Permission, PermissionListDvo, PermissionListDvo, PermissionListDvo>
     {
-        public PermissionController(UnitOfWork _unitOfWork,IMapper _mapper) : base(_unitOfWork,_mapper)
+        public PermissionController(UnitOfWork _unitOfWork, IMapper _mapper) : base(_unitOfWork, _mapper)
         {
         }
 
-        
+
     }
 }

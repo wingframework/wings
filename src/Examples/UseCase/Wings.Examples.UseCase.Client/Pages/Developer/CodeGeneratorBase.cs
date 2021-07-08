@@ -7,10 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Shared.Dto;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Client.Pages
 {
-    public class CodeGeneratorBase:ComponentBase
+    public class CodeGeneratorBase : ComponentBase
     {
         /// <summary>
         /// 页面路径
@@ -49,7 +50,7 @@ namespace Wings.Examples.UseCase.Client.Pages
         {
             base.OnInitialized();
             editContext = new EditContext(this);
-            TypeOptions = Assembly.GetAssembly(typeof(ProvinceJson)).GetTypes().Where(type => type.IsAbstract == false&&type.IsInterface==false).ToList();
+            TypeOptions = Assembly.GetAssembly(typeof(ProvinceJson)).GetTypes().Where(type => type.IsAbstract == false && type.IsInterface == false).ToList();
 
         }
 

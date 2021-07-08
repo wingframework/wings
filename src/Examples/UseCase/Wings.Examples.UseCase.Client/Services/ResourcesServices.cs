@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Shared.Dto;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 using Wings.Framework.Ui.Core.Services;
 
 namespace Wings.Examples.UseCase.Client.Services

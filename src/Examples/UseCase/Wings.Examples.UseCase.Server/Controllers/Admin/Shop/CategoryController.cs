@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Wings.Examples.UseCase.Server.Models;
 using Wings.Examples.UseCase.Server.Services.UnitOfWork;
 using Wings.Examples.UseCase.Shared.Dto;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Server.Controllers.Admin
 {
@@ -18,6 +19,6 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
         {
         }
 
-       
+
     }
 }

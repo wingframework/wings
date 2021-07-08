@@ -17,7 +17,6 @@ using System.Reflection;
 using Newtonsoft.Json;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Builder;
-using Wings.Examples.UseCase.Shared.Dvo;
 using Microsoft.AspNetCore.Identity;
 using Wings.Examples.UseCase.Server.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -104,20 +103,20 @@ p.WithOrigins("http://localhost:5000")
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtSecurityKey"]))
                     };
                 })
-                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,opt=>
-                {
-                    opt.AccessDeniedPath = "/Login";
-                    opt.Cookie.HttpOnly =false;
-                })
+                .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+                 {
+                     opt.AccessDeniedPath = "/Login";
+                     opt.Cookie.HttpOnly = false;
+                 })
                 ;
 
             services.AddAuthorization(options =>
             {
 
                 options.AddPolicy("13419597065", policy => policy.RequireClaim(ClaimTypes.Name));
-                
 
-                });
+
+            });
             services.AddScoped<TokenService>();
             services.AddScoped<UnitOfWork>();
             services.ConfigureApplicationCookie(options =>
@@ -131,7 +130,8 @@ p.WithOrigins("http://localhost:5000")
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 //options.SlidingExpiration = true;
             });
-            services.AddSwaggerGen(c=> {
+            services.AddSwaggerGen(c =>
+            {
                 c.SwaggerDoc("v2", new OpenApiInfo
                 {
                     Version = "v2",
@@ -157,7 +157,7 @@ p.WithOrigins("http://localhost:5000")
                 var sharedXmlPath = Path.Combine(AppContext.BaseDirectory, "Wings.Examples.UseCase.Shared.xml");
                 c.IncludeXmlComments(xmlPath);
                 c.IncludeXmlComments(sharedXmlPath);
-                
+
             });
 
         }
@@ -169,7 +169,7 @@ p.WithOrigins("http://localhost:5000")
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-              
+
             }
 
             app.UseSwagger();
@@ -181,8 +181,8 @@ p.WithOrigins("http://localhost:5000")
                 c.SwaggerEndpoint("/swagger/v2/swagger.json", "My API V2");
                 c.EnableFilter();
                 c.EnableValidator();
-              
-                
+
+
             });
             app.UseWebAssemblyDebugging();
             // app.UseHttpsRedirection();

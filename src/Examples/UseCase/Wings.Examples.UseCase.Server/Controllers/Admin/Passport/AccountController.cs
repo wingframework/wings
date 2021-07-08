@@ -10,8 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Server.Models;
-using Wings.Examples.UseCase.Shared.Dto;
-using Wings.Examples.UseCase.Shared.Dvo;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 using Wings.Framework.Shared.Dtos;
 
 namespace Wings.Examples.UseCase.Server.Controllers.Admin
@@ -25,10 +24,10 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
         private readonly UserManager<RbacUser> _userManager;
         private readonly AppDbContext appDbContext;
         private readonly IMapper mapper;
-        public AccountController(IMapper _mapper, UserManager<RbacUser> userManager  , AppDbContext _appDbContext)
+        public AccountController(IMapper _mapper, UserManager<RbacUser> userManager, AppDbContext _appDbContext)
         {
             _userManager = userManager;
-             appDbContext= _appDbContext ;
+            appDbContext = _appDbContext;
             mapper = _mapper;
 
         }
@@ -48,27 +47,27 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin
 
 
                 var roles = await appDbContext.Roles.Include(role => role.Menus)
-                    .Include(role=>role.Permissions)
+                    .Include(role => role.Permissions)
                     .Where(role => roleNames.Contains(role.NormalizedName)).ToListAsync();
                 var allMenus = new List<Menu>();
                 var allPermissions = new List<Permission>();
 
-                roles.ForEach(role => { allMenus.AddRange(role.Menus);allPermissions.AddRange(role.Permissions); });
+                roles.ForEach(role => { allMenus.AddRange(role.Menus); allPermissions.AddRange(role.Permissions); });
                 var ids = allMenus.Select(menu => menu.Id).Distinct();
-                var menus= await appDbContext.Menus.Where(menu => ids.Contains(menu.Id)).ProjectTo<MenuData>(mapper.ConfigurationProvider).ToListAsync();
+                var menus = await appDbContext.Menus.Where(menu => ids.Contains(menu.Id)).ProjectTo<MenuData>(mapper.ConfigurationProvider).ToListAsync();
 
                 var permissionIds = allMenus.Select(menu => menu.Id).Distinct();
                 var permissions = await appDbContext.Permissions.Where(permission => permissionIds.Contains(permission.Id)).ProjectTo<PermissionListDvo>(mapper.ConfigurationProvider).ToListAsync();
 
 
 
-                return new UserInfoDto { MenuDataList = menus ,PermissionList=permissions,User=new UserDto { Nickname=user.nickname,Id=user.Id,Phone=user.PhoneNumber} };
+                return new UserInfoDto { MenuDataList = menus, PermissionList = permissions, User = new UserDto { Nickname = user.nickname, Id = user.Id, Phone = user.PhoneNumber } };
             }
             else
             {
                 return null;
             }
-            
+
 
 
         }

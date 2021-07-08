@@ -7,7 +7,7 @@ using Wings.Framework.Shared.Dtos;
 using Wings.Framework.Shared.Dtos.Admin;
 
 
-namespace Wings.Examples.UseCase.Shared.Dvo
+namespace Wings.Examples.UseCase.Shared.Dto.Admin
 {
     /// <summary>
     /// 公开声明一个  菜单页 的类，然后继承 页面设计 这个类
@@ -51,7 +51,7 @@ namespace Wings.Examples.UseCase.Shared.Dvo
     {
         public int Id { get; set; }
         [Display(Name = "排序")]
-       
+
         public int Order { get; set; }
         [Display(Name = "菜单编码")]
 
@@ -95,7 +95,7 @@ namespace Wings.Examples.UseCase.Shared.Dvo
         public int Order { get; set; }
         [Display(Name = "菜单编码")]
         [Required]
-        [StringLength(10,MinimumLength =1)]
+        [StringLength(10, MinimumLength = 1)]
         public string Code { get; set; }
         [Display(Name = "地址")]
 

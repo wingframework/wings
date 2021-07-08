@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Server.Models;
 using Wings.Examples.UseCase.Server.Services.UnitOfWork;
-using Wings.Examples.UseCase.Shared.Dvo;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Server.Controllers.Admin.Rbac
 {
@@ -23,15 +23,15 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin.Rbac
             appDbContext = _appDbContext;
         }
         [HttpPost]
-        public override async Task<RoleListView> Insert([FromBody]RoleListView input)
+        public override async Task<RoleListView> Insert([FromBody] RoleListView input)
         {
-          var role=  mapper.Map<RoleListView, RbacRole>(input);
-            
+            var role = mapper.Map<RoleListView, RbacRole>(input);
+
             role.Menus = appDbContext.Menus.Where(m => role.Menus.Select(m => m.Id).Contains(m.Id)).ToList();
             role.Permissions = appDbContext.Permissions.Where(m => role.Permissions.Select(p => p.Id).Contains(m.Id)).ToList();
             appDbContext.Roles.Add(role);
             await appDbContext.SaveChangesAsync();
-            return  mapper.Map<RbacRole,RoleListView>(role);
+            return mapper.Map<RbacRole, RoleListView>(role);
         }
 
 
@@ -64,7 +64,7 @@ namespace Wings.Examples.UseCase.Server.Controllers.Admin.Rbac
         [HttpGet]
         public RoleListView Detail(int id)
         {
-           return appDbContext.Roles.Where(role => role.Id == id).ProjectTo<RoleListView>(mapper.ConfigurationProvider).FirstOrDefault();
+            return appDbContext.Roles.Where(role => role.Id == id).ProjectTo<RoleListView>(mapper.ConfigurationProvider).FirstOrDefault();
         }
 
 

@@ -17,9 +17,9 @@ namespace Wings.Examples.UseCase.Shared.Dto
     /// </summary>
     [SearchBar(typeof(CategorySearchBar))]
     [DataGrid]
-    [Display(Name="分类页面")]
+    [Display(Name = "分类页面")]
     [DataSource("/api/AttrCategory")]
-    public class CategoryListViewDto 
+    public class CategoryListViewDto
     {
         public int Id { get; set; }
 
@@ -41,25 +41,25 @@ namespace Wings.Examples.UseCase.Shared.Dto
     }
     [SearchBar(typeof(CategorySearchBar))]
     [DataSource("/api/category")]
-    public class CategoryListDvo : BasicTree<CategoryListDvo>
+    public class CategoryListDvo2 : BasicTree<CategoryListDvo2>
     {
         [FormField(Edit = false)]
         public int Id { get; set; }
-        [FormField(Edit =false)]
+        [FormField(Edit = false)]
         public int? ParentId { get; set; }
         public string Title { get; set; }
-        [Display(Name ="关键字")]
+        [Display(Name = "关键字")]
         public string Keywords { get; set; }
 
         [Ignore]
-        public List<CategoryListDvo> Children { get; set; }
+        public List<CategoryListDvo2> Children { get; set; }
 
         public string FrontDesc { get; set; }
-        [Display(Name ="排序")]
+        [Display(Name = "排序")]
         public int SortOrder { get; set; }
-        [Display(Name ="展示下标")]
+        [Display(Name = "展示下标")]
         public int ShowIndex { get; set; }
-        [Display(Name ="是否显示")]
+        [Display(Name = "是否显示")]
         public bool IsShow { get; set; }
         [FormFieldUploadImage]
         public string BannerUrl { get; set; }
@@ -77,7 +77,7 @@ namespace Wings.Examples.UseCase.Shared.Dto
         [Ignore]
         public virtual List<AttrListDvo> Attrs { get; set; }
 
-        
+
 
     }
     public class AttrSearchBar
@@ -93,7 +93,7 @@ namespace Wings.Examples.UseCase.Shared.Dto
         [Key]
         [FormField(Edit = false)]
         public int Id { get; set; }
-       
+
         [FormFieldSelect()]
         [IgnoreColumn]
         public AttrCategoryOption AttrCategoryOption { get; set; }
@@ -110,7 +110,7 @@ namespace Wings.Examples.UseCase.Shared.Dto
 
         public AttrListDvo() { }
 
-        public static AttrListDvo CreateAttrListDvo(AttrListDvo item,AttrCategoryOption option)
+        public static AttrListDvo CreateAttrListDvo(AttrListDvo item, AttrCategoryOption option)
         {
             item.AttrCategoryOption = option;
             return item;
@@ -120,7 +120,7 @@ namespace Wings.Examples.UseCase.Shared.Dto
 
 
     }
-    [DataSource("/api/AttrCategory/",LoadUrl= "/api/AttrCategory/Options")]
+    [DataSource("/api/AttrCategory/", LoadUrl = "/api/AttrCategory/Options")]
     public class AttrCategoryOption : ILabel
     {
         public int Id { get; set; }

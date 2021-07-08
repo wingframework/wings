@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Wings.Examples.UseCase.Shared.Dto;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 using Wings.Framework.Ui.Core.Services;
 
 namespace Wings.Examples.UseCase.Client.Services
@@ -41,7 +42,7 @@ namespace Wings.Examples.UseCase.Client.Services
 
         public async Task<RegisterResult> Register(RegisterModel registerModel)
         {
-            var result = await _httpClient.PostJsonAsync<RegisterResult>(configService.url+ "/api/account", registerModel);
+            var result = await _httpClient.PostJsonAsync<RegisterResult>(configService.url + "/api/account", registerModel);
 
             return result;
         }
@@ -49,7 +50,7 @@ namespace Wings.Examples.UseCase.Client.Services
         public async Task<LoginResult> Login(LoginModel loginModel)
         {
             var loginAsJson = JsonSerializer.Serialize(loginModel);
-            var response = await _httpClient.PostAsync(configService.url+"/api/Login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
+            var response = await _httpClient.PostAsync(configService.url + "/api/Login", new StringContent(loginAsJson, Encoding.UTF8, "application/json"));
             var loginResult = JsonSerializer.Deserialize<LoginResult>(await response.Content.ReadAsStringAsync(), new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
 
             if (!response.IsSuccessStatusCode)
@@ -66,8 +67,8 @@ namespace Wings.Examples.UseCase.Client.Services
 
         public async Task<UserInfoDto> GetUserInfo()
         {
-          return  await _httpClient.GetJsonAsync<UserInfoDto>(configService.url + "/api/Account/GetMyUserInfo");
-            
+            return await _httpClient.GetJsonAsync<UserInfoDto>(configService.url + "/api/Account/GetMyUserInfo");
+
         }
 
         public async Task Logout()

@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 using Wings.Examples.UseCase.Shared.Dto;
 using Wings.Examples.UseCase.Client.Pages;
 using Wings.Examples.UseCase.Client.Services;
+using Wings.Examples.UseCase.Shared.Dto.Admin;
 
 namespace Wings.Examples.UseCase.Client.Pages
 {
- public   enum PageStatus
+    public enum PageStatus
     {
         Login,
         Register,
         Password
     }
- 
-    public class LoginBase:ComponentBase
+
+    public class LoginBase : ComponentBase
     {
-      public  PageStatus status = PageStatus.Login;
+        public PageStatus status = PageStatus.Login;
 
         protected void OnFinishFailed(EditContext editContext)
         {
