@@ -29,8 +29,8 @@ namespace Wings.Examples.UseCase.Shared.Dto.Admin
             .SetPageTitle("菜单管理")
             .SetPageLink("/rbac/menu2")
             .SetMainView<MenuListDvo>()
-            .SetCreateViewType<MenuCreateDvo>()
-            .SetUpdateViewType<MenuUpdateDvo>()
+            .SetCreateViewType<MenuCreateDvo>(6)
+            .SetUpdateViewType<MenuUpdateDvo>(6)
             .SetDetailViewType<MenuListDvo>()
             .Commit();
         }
@@ -44,11 +44,12 @@ namespace Wings.Examples.UseCase.Shared.Dto.Admin
 
     [AutoMapper.AutoMap(typeof(MenuCreateDvo), ReverseMap = true)]
     [AutoMapper.AutoMap(typeof(MenuUpdateDvo), ReverseMap = true)]
-    //[AutoMapper.AutoMap(typeof(MenuDetailDvo), ReverseMap = true)]
+
 
     [DataSource("/api/menu")]
     public class MenuListDvo : BasicTree<MenuListDvo>
     {
+        [Editable(false)]
         public int Id { get; set; }
         [Display(Name = "排序")]
 
@@ -67,7 +68,7 @@ namespace Wings.Examples.UseCase.Shared.Dto.Admin
         /// <value></value>
         public string TreePath { get; set; }
         [Display(Name = "上级id")]
-
+        [Editable(false,AllowInitialValue =false)]
         public int? ParentId { get; set; }
         [Display(Name = "创建时间")]
 
@@ -84,12 +85,14 @@ namespace Wings.Examples.UseCase.Shared.Dto.Admin
         [Display(Name = "菜单管理")]
 
         public string Title { get; set; }
+        [Ignore]
         public List<MenuListDvo> Children { get; set; }
     }
 
     [DataSource("/api/menu")]
     public class MenuCreateDvo
     {
+        [Editable(false)]
         public int Id { get; set; }
         [Display(Name = "排序")]
         public int Order { get; set; }

@@ -19,12 +19,17 @@ namespace Wings.Framework.Shared.Dtos.Admin
         public string MainViewConfig { get; set; }
         public Type MainViewType { get; set; }
         public Type CreateViewType { get; set; }
+        public int CreateViewDefaultSpan { get; set; } = 12;
+        public Type UpdateViewType { get; set; }
+        public int UpdateViewDefaultSpan { get; set; } = 12;
+
         public Type DetailViewType { get; set; }
+        
         public List<TabConfig> CreateViewTabs { get; set; }
         public List<TabConfig> UpdateViewTabs { get; set; }
         public List<TabConfig> DetailViewTabs { get; set; }
 
-        public Type UpdateViewType { get; set; }
+       
 
 
     }
@@ -84,14 +89,16 @@ namespace Wings.Framework.Shared.Dtos.Admin
             PageData.CreateViewTabs = tabs.ToList();
             return this;
         }
-        public PageDesign SetCreateViewType<TView>()
+        public PageDesign SetCreateViewType<TView>(int DefaultSpan=12)
         {
             PageData.CreateViewType = typeof(TView);
+            PageData.CreateViewDefaultSpan = DefaultSpan;
             return this;
         }
-        public PageDesign SetUpdateViewType<TView>()
+        public PageDesign SetUpdateViewType<TView>(int DefaultSpan=12)
         {
             PageData.UpdateViewType = typeof(TView);
+            PageData.UpdateViewDefaultSpan = DefaultSpan;
             return this;
         }
         public PageDesign SetUpdateViewTabs(params TabConfig[] tabs)

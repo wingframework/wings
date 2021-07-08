@@ -196,7 +196,7 @@ namespace Wings.Examples.UseCase.Client.Pages
 <AntTreeView TModel=""{PageData.MainViewType.Name}"" @bind-SelectedData=""SelectedData"" @ref=""table""></AntTreeView>
 
 </Col>
-    <Col Span=""12"" Push=""2"">
+    <Col Span=""14"" Push=""1"">
    
   @if(SelectedData != null)
     {{
@@ -243,7 +243,7 @@ namespace Wings.Examples.UseCase.Client.Pages
 
         public string GetCreateFormViewCode()
         {
-            return @$"<AntDynamicForm mode=""modal"" TModel=""{PageData.CreateViewType.Name}"" @ref=""createForm"" OnSubmit=""async () =>{{await createForm.InsertAsync();await table.Load(); }}""></AntDynamicForm>";
+            return @$"<AntDynamicForm mode=""modal"" TModel=""{PageData.CreateViewType.Name}"" DefaultFieldSpan=""{PageData.CreateViewDefaultSpan}"" @ref=""createForm"" OnSubmit=""async () =>{{await createForm.InsertAsync();await table.Load(); }}""></AntDynamicForm>";
         }
         public bool IsCreateTabs()
         {
@@ -285,7 +285,7 @@ namespace Wings.Examples.UseCase.Client.Pages
 
         public string GetUpdateFormViewCode()
         {
-            return @$"<AntDynamicForm mode=""modal"" TModel=""{PageData.UpdateViewType.Name}"" @ref=""updateForm"" OnSubmit=""async () =>{{await updateForm.InsertAsync();await table.Load(); }}""></AntDynamicForm>";
+            return @$"<AntDynamicForm mode=""modal"" TModel=""{PageData.UpdateViewType.Name}"" DefaultFieldSpan=""{PageData.UpdateViewDefaultSpan}"" @ref=""updateForm"" OnSubmit=""async () =>{{await updateForm.InsertAsync();await table.Load(); }}""></AntDynamicForm>";
         }
         public string GetCreateTabsViewCode()
         {
@@ -299,7 +299,7 @@ namespace Wings.Examples.UseCase.Client.Pages
             <TabPane Key=""1"">
                 <Tab>基本信息</Tab>
                 <ChildContent>
-                    <AntDynamicForm TModel=""{PageData.CreateViewType.Name}"" Value=""CreateData""></AntDynamicForm>
+                    <AntDynamicForm TModel=""{PageData.CreateViewType.Name}"" DefaultFieldSpan=""{PageData.CreateViewDefaultSpan}"" Value=""CreateData""></AntDynamicForm>
                 </ChildContent>
             </TabPane>
 {string.Join('\n',createTabs.Select(tab=> GetSubCreateTable(tab)) ) }
@@ -416,7 +416,7 @@ public string GetSubCreateTable(TabConfig tab)
             <TabPane Key=""1"">
                 <Tab>基本信息</Tab>
                 <ChildContent>
-                    <AntDynamicForm TModel=""{PageData.UpdateViewType.Name}"" Value=""EditData""></AntDynamicForm>
+                    <AntDynamicForm TModel=""{PageData.UpdateViewType.Name}"" DefaultFieldSpan=""{PageData.UpdateViewDefaultSpan}"" Value=""EditData""></AntDynamicForm>
                 </ChildContent>
             </TabPane>
 {string.Join('\n', updateTabs.Select(tab => GetSubUpdateTable(tab))) }

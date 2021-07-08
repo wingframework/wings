@@ -36,6 +36,25 @@ namespace Wings.Framework.Ui.Core.Components
             IsKey = Property.GetCustomAttribute<KeyAttribute>() == null;
 
         }
+
+        protected bool AllowEdit
+        {
+            get {
+
+                var editableAttribute = Property.GetCustomAttribute<EditableAttribute>();
+                if (editableAttribute != null)
+                {
+                    return editableAttribute.AllowEdit;
+                }
+                else
+                {
+                    return true;
+                }
+
+
+            }
+
+        }
     }
 
 }

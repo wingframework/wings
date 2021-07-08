@@ -7,8 +7,17 @@
         @FieldLabel
     </AntDesign.Col>
     <AntDesign.Col Class="gutter-row" Span="12">
-        <AntDesign.Input TValue="string" Value="@((string)Property.GetValue(Value))" ValueChanged="async(e)=>await changeValue(e)">
+
+        @if (AllowEdit)
+        {
+        <AntDesign.Input TValue="string" Value="@((string)Property.GetValue(Value))" ValueChanged="async (e) => await changeValue(e)">
         </AntDesign.Input>
+                    }
+                    else
+                    {
+                        @Property.GetValue(Value).ToString()
+                    }
+
     </AntDesign.Col>
 
 </Row>

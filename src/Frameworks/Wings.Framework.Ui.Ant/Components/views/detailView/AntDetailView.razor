@@ -2,35 +2,19 @@
 @inherits DetailViewBase<TModel>
 @typeparam TModel
 
-<table>
-    <div class="data-table" style="margin-top:20px;">
-        <table>
-            @for (var i = 0; i < groups; i++)
-            {
-                <tr>
-
-
-
-
-                    <AntDetailProp TModel="TModel" Value="Value" Property="PropertyList[i*2]"></AntDetailProp>
-                    @if (i * 2 + 1 < PropertyList.Count)
-                    {
-
-                        <AntDetailProp TModel="TModel" Value="Value" Property="PropertyList[i*2+1]"></AntDetailProp>
-                    }
-                </tr>
-            }
-
-        </table>
-
-    </div>
-</table>
-@code {
-    int groups;
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        groups = int.Parse(Math.Ceiling(PropertyList.Count / 2.0).ToString());
-        StateHasChanged();
+<Row Gutter="16" Style="margin-top:20px;">
+    @foreach(var prop in PropertyList) { 
+    <AntDesign.Col Class="gutter-row" Span="12">
+        <AntDetailProp TModel="TModel" Value="Value" Property="prop"></AntDetailProp>
+    </AntDesign.Col>
     }
-}
+  </Row>
+    @code {
+        int groups;
+        protected override void OnInitialized()
+        {
+            base.OnInitialized();
+            groups = int.Parse(Math.Ceiling(PropertyList.Count / 2.0).ToString());
+            StateHasChanged();
+        }
+    }

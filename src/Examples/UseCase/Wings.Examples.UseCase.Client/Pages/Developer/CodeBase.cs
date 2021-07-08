@@ -20,9 +20,7 @@ namespace Wings.Examples.UseCase.Client.Pages
                 var mainModel = assembly.GetType(CodeConfig.MainModalFullName);
                 var createForm = assembly.GetType(CodeConfig.CreateFormModelFullName);
                 var updateFormModel = assembly.GetType(CodeConfig.UpdateFormModelFullName);
-                Console.WriteLine(mainModel);
-                Console.WriteLine(createForm);
-                Console.WriteLine(updateFormModel);
+             
 
 
 

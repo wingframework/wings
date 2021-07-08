@@ -12,7 +12,7 @@
     <AntTreeView TModel="MenuListDvo" @bind-SelectedData="SelectedData" @ref="table"></AntTreeView>
 
     </Col>
-    <Col Span="12" Push="2">
+    <Col Span="14" Push="1">
 
     @if (SelectedData != null)
     {
@@ -41,8 +41,8 @@
     </Col>
 </Row>
 
-<AntDynamicForm mode="modal" TModel="MenuCreateDvo" @ref="createForm" OnSubmit="async () =>{await createForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
-<AntDynamicForm mode="modal" TModel="MenuUpdateDvo" @ref="updateForm" OnSubmit="async () =>{await updateForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+<AntDynamicForm mode="modal" TModel="MenuCreateDvo" DefaultFieldSpan="6" @ref="createForm" OnSubmit="async () =>{await createForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
+<AntDynamicForm mode="modal" TModel="MenuUpdateDvo" DefaultFieldSpan="6" @ref="updateForm" OnSubmit="async () =>{await updateForm.InsertAsync();await table.Load(); }"></AntDynamicForm>
 
 
 
