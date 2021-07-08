@@ -25,12 +25,12 @@
 
     </div>
 </table>
-@code{
+@code {
     int groups;
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        groups = int.Parse(Math.Round(new decimal(PropertyList.Count / 2), 0).ToString());
+        groups = int.Parse(Math.Ceiling(PropertyList.Count / 2.0).ToString());
         StateHasChanged();
     }
 }
