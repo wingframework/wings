@@ -17,6 +17,7 @@ namespace Wings.Examples.UseCase.Server.Seed
              new Menu{Id=100,ParentId=null,Code="rbac",Name="角色权限",Icon="cloud",TreePath=",100,"},
 
              new Menu{Id=101,ParentId=100,Code="role",Name="角色管理",Icon="cloud",Url="/rbac/role",TreePath=",100,101,"},
+             new Menu{Id=111,ParentId=100,Code="role2",Name="角色管理2",Icon="cloud",Url="/rbac/role2",TreePath=",100,101,"},
              new Menu{Id=102,ParentId=100,Code="user",Name="用户管理",Icon="cloud",Url="/rbac/user", TreePath=",100,102,"},
              new Menu{Id=200,ParentId=null,Code="system",Name="系统设置",Icon="cloud",TreePath=",200,"},
              new Menu{Id=201,ParentId=200,Code="person-center",Name="UI设置",Icon="cloud",TreePath=",200,201,"},
